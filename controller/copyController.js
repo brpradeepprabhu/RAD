@@ -8,68 +8,85 @@ const fs = require('fs-extra');
 const shell = require('shelljs');
 var child_process = require('child_process');
 class CopyController {
-    constructor() {
+	constructor() {}
+	copyProject(req, res) {
+		const projectName = req.body.projectName.toString();
+		const pathName = req.body.pathName.toString();
+		try {
+			shell.cd(pathName);
+			shell.mkdir(projectName);
+			decompress(sourceCodePath, pathName + '/' + projectName).then((files) => {
+				res.status(200).json({
+					data: 'Project unzipped successfully'
+				});
+			});
+		} catch (e) {
+			res.status(400).json({
+				message: e
+			});
+		}
+	}
+	installPackages(req, res) {
+		const projectName = req.body.projectName.toString();
+		const pathName = req.body.pathName.toString();
+		const angularPath = pathName + '/' + projectName + '/client';
+		try {
+			child_process.execSync('npm install', {
+				cwd: angularPath
+			});
+			res.status(200).json({ data: 'Packages are installed' });
+		} catch (e) {
+			res.status(400).json({ message: e });
+		}
+	}
+	copyDataModels(req, res) {
+		const projectName = req.body.projectName.toString();
+		const pathName = req.body.pathName.toString();
+		const model = req.body.model;
 
-    }
-    copyProject(req, res) {
-        const projectName = (req.body.projectName).toString();
-        const pathName = (req.body.pathName).toString();
-        try {
-            shell.cd(pathName);
-            shell.mkdir(projectName);
-            decompress(sourceCodePath, pathName + '/' + projectName).then(files => {
-                res.status(200).json({
-                    data: 'Project unzipped successfully'
-                });
-            });
-        } catch (e) {
-            res.status(400).json({
-                message: e
-            });
-        }
+		shell.cd(pathName + '/' + projectName + '/server');
+		shell.mkdir('controller');
+		shell.mkdir('models');
+		fs
+			.copy(
+				dirName + '/assets/code/samplemodel.js',
+				pathName + '/' + projectName + '/server/models/' + model.name + '.js'
+			)
+			.then(() => {
+				let contents = fs.readFileSync(
+					pathName + '/' + projectName + '/server/models/' + model.name + '.js',
+					'utf8'
+				);
 
-    }
-    installPackages(req, res) {
-        const projectName = (req.body.projectName).toString();
-        const pathName = (req.body.pathName).toString();
-        const angularPath = pathName + '/' + projectName + '/client'
-        child_process.execSync("start cmd.exe /K npm install", {
-            cwd: angularPath
-        });
-    }
-    copyDataModels(req, res) {
-        const projectName = (req.body.projectName).toString();
-        const pathName = (req.body.pathName).toString();
-        const model = (req.body.model)
+				let replaceContent = contents.replace(new RegExp('sampleModel', 'g'), model.name);
+				fs.writeFileSync(pathName + '/' + projectName + '/server/models/' + model.name + '.js', replaceContent);
+				fs
+					.copy(
+						dirName + '/assets/code/samplecontroller.js',
+						pathName + '/' + projectName + '/server/controller/' + model.name + 'Controller.js'
+					)
+					.then(() => {
+						let contents = fs.readFileSync(
+							pathName + '/' + projectName + '/server/controller/' + model.name + 'Controller.js',
+							'utf8'
+						);
 
-        shell.cd(pathName + '/' + projectName + '/server');
-        shell.mkdir('controller');
-        shell.mkdir('models');
-        fs.copy(dirName + '/assets/code/samplemodel.js', pathName + '/' + projectName + '/server/models/' + model.name + '.js')
-            .then(() => {
-                let contents = fs.readFileSync(pathName + '/' + projectName + '/server/models/' + model.name + '.js', 'utf8');
-
-                let replaceContent = contents.replace(new RegExp('sampleModel', 'g'), model.name);
-                fs.writeFileSync(pathName + '/' + projectName + '/server/models/' + model.name + '.js', replaceContent);
-                fs.copy(dirName + '/assets/code/samplecontroller.js', pathName + '/' + projectName + '/server/controller/' + model.name + 'Controller.js')
-                    .then(() => {
-                        let contents = fs.readFileSync(pathName + '/' + projectName + '/server/controller/' + model.name + 'Controller.js', 'utf8');
-
-                        let replaceContent = contents.replace(new RegExp('samplemodel', 'g'), model.name);
-                        fs.writeFileSync(pathName + '/' + projectName + '/server/controller/' + model.name + 'Controller.js', replaceContent);
-                        res.json({
-                            response: replaceContent
-                        });
-                    });
-
-
-            })
-            .catch(err => {
-                res.json({
-                    message: "Error : " + err
-                });
-            });
-    }
+						let replaceContent = contents.replace(new RegExp('samplemodel', 'g'), model.name);
+						fs.writeFileSync(
+							pathName + '/' + projectName + '/server/controller/' + model.name + 'Controller.js',
+							replaceContent
+						);
+						res.json({
+							response: replaceContent
+						});
+					});
+			})
+			.catch((err) => {
+				res.json({
+					message: 'Error : ' + err
+				});
+			});
+	}
 }
 var copyCtrl = new CopyController();
 /*
