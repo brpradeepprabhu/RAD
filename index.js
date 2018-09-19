@@ -39,11 +39,10 @@ app.get('/', (req, res) => {
 	);
 });
 app.get('/copyFiles', (req, res) => {
-    shell.mkdir('move');
-    shell.cp( __dirname + '/assets/code/samplemodel.js','move/');
     shell.cd(out + '/' + projectName + '/server');
     shell.mkdir('models');
-    shell.mv( __dirname + '/assets/move/samplemodel.js','models/');
+	shell.mv( __dirname + '/assets/code/samplemodel.js','models/');
+	shell.sed('-i', 'sampleModel', 'testModel', 'models/samplemodel.js');
     res.json({response:"files created"+__dirname + '/assets/code/samplemodel.js'})
 });
 app.listen('3002', function() {
