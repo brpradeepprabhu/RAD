@@ -43,10 +43,14 @@ class CopyController {
 	installPackages(req, res) {
 		const projectName = req.body.projectName.toString();
 		const pathName = req.body.pathName.toString();
-		const angularPath = pathName + '/' + projectName + '/client';
+        const angularPath = pathName + '/' + projectName + '/client';
+        const serverPath = pathName + '/' + projectName + '/server';
 		try {
 			child_process.execSync('npm install', {
 				cwd: angularPath
+            });
+            child_process.execSync('npm install', {
+				cwd: serverPath
 			});
 			res.status(200).json({ data: 'Packages are installed' });
 		} catch (e) {
