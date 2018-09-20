@@ -9,6 +9,13 @@ const shell = require('shelljs');
 var child_process = require('child_process');
 class CopyController {
 	constructor() {}
+	/**
+	 *
+	 *
+	 * @param {*} req
+	 * @param {*} res
+	 * @memberof CopyController
+	 */
 	copyProject(req, res) {
 		const projectName = req.body.projectName.toString();
 		const pathName = req.body.pathName.toString();
@@ -26,6 +33,13 @@ class CopyController {
 			});
 		}
 	}
+	/**
+ *
+ *
+ * @param {*} req
+ * @param {*} res
+ * @memberof CopyController
+ */
 	installPackages(req, res) {
 		const projectName = req.body.projectName.toString();
 		const pathName = req.body.pathName.toString();
@@ -39,11 +53,20 @@ class CopyController {
 			res.status(400).json({ message: e });
 		}
 	}
+	/**
+	 *
+	 *
+	 * @param {*} req
+	 * @param {*} res
+	 * @memberof CopyController
+	 */
 	copyDataModels(req, res) {
 		const projectName = req.body.projectName.toString();
 		const pathName = req.body.pathName.toString();
 		const model = req.body.model;
-
+		/**
+		 * Adding models to the project files
+		 */
 		shell.cd(pathName + '/' + projectName + '/server');
 		shell.mkdir('controller');
 		shell.mkdir('models');
@@ -60,6 +83,9 @@ class CopyController {
 
 				let replaceContent = contents.replace(new RegExp('sampleModel', 'g'), model.name);
 				fs.writeFileSync(pathName + '/' + projectName + '/server/models/' + model.name + '.js', replaceContent);
+				/**
+		 			* Adding controller to the project files
+		 		*/
 				fs
 					.copy(
 						dirName + '/assets/code/samplecontroller.js',
@@ -70,14 +96,24 @@ class CopyController {
 							pathName + '/' + projectName + '/server/controller/' + model.name + 'Controller.js',
 							'utf8'
 						);
-
 						let replaceContent = contents.replace(new RegExp('samplemodel', 'g'), model.name);
+
 						fs.writeFileSync(
 							pathName + '/' + projectName + '/server/controller/' + model.name + 'Controller.js',
 							replaceContent
 						);
+						let indexContent = fs.readFileSync(pathName + '/' + projectName + '/server/index.js', 'utf8');
+
+						var apiData =
+							'const ' + model.name + "Controller = require('./controller/" + model.name + "Controller')";
+						apiData += '\n';
+						apiData += "app.use('/api/" + model.name + "'," + model.name + 'Controller)';
+						indexContent += '\n' + apiData;
+						fs.writeFileSync(pathName + '/' + projectName + '/server/index.js', indexContent);
+
 						res.json({
-							response: replaceContent
+							response: pathName + '/' + projectName + '/server/index.js',
+							content: indexContent
 						});
 					});
 			})

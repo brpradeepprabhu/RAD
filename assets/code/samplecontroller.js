@@ -24,3 +24,4 @@ class samplemodelController {
 
 var samplemodelCtrl = new samplemodelController();
 router.get('/fetch', samplemodelCtrl.fetchData)
+module.exports = router;
