@@ -17,7 +17,9 @@ import { Rad03ModelSetupComponent } from './rad03-model-setup/rad03-model-setup.
 import { Rad04UiSetupComponent } from './rad04-ui-setup/rad04-ui-setup.component';
 import { Rad05InstallPacComponent } from './rad05-install-pac/rad05-install-pac.component';
 import { Rad00MainSetupComponent } from './rad00-main-setup/rad00-main-setup.component';
-
+import { AppService } from './app.service';
+import { HttpClientModule } from '@angular/common/http';
+import { BaseComponent } from './base/base.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,8 @@ import { Rad00MainSetupComponent } from './rad00-main-setup/rad00-main-setup.com
     Rad03ModelSetupComponent,
     Rad04UiSetupComponent,
     Rad05InstallPacComponent,
-    Rad00MainSetupComponent
+    Rad00MainSetupComponent,
+    BaseComponent
   ],
   imports: [
     BrowserModule,
@@ -36,10 +39,11 @@ import { Rad00MainSetupComponent } from './rad00-main-setup/rad00-main-setup.com
     StepsModule,
     InputTextModule,
     ButtonModule,
+    HttpClientModule,
     DropdownModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

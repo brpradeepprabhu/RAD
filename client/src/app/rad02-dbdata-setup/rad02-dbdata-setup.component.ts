@@ -16,7 +16,10 @@ export class Rad02DbdataSetupComponent implements OnInit {
             username: new FormControl(''),
             password: new FormControl('')
         });
-    }
+	}
+    dbSubmitClick(){
+		
+	}
 
     ngOnInit() {}
 }
