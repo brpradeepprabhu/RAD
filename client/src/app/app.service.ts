@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class AppService {
-    projectName = 'testApp';
-    pathName = '/home/pradeep/';
+    projectName = 'AI099';
+    pathName = 'D:\Hackthon18\Test';
     dbName = '';
     frontEnd = '';
     backEnd = '';
@@ -20,6 +20,10 @@ export class AppService {
 
     createProject(projectData): Observable<any> {
         return this.http.post(environment.apiURL + 'copy/project', projectData).pipe(tap((data) => data));
+    }
+    
+    createModel(modelData): Observable<any> {
+        return this.http.post(environment.apiURL + 'copy/model', modelData).pipe(tap((data) => data));
     }
 
     setProjectDetails(obj) {
