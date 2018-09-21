@@ -1,3 +1,7 @@
 :host /deep/ .ui-inputtext{
     width: 80%;
 }
+
+:host /deep/ .ui-dropdown{
+    width: 80% !important;
+}

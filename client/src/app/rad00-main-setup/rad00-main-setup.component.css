@@ -11,3 +11,9 @@
 :host /deep/ .ui-steps-item{
     width: 20%;
 }
+
+:host /deep/ .ui-steps-number {
+    width: 45px !important;
+    height: 45px !important;
+    padding-top: 10px;
+}

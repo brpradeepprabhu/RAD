@@ -12,6 +12,12 @@
 .px20{
     padding: 20px;
 }
+.px10{
+    padding: 10px;
+}
+.px5{
+    padding: 5px;
+}
 .borderpx2Css{
     border: 2px solid beige;
     box-shadow: 3px 3px beige;
@@ -20,10 +26,48 @@
     border-right: 2px solid beige;
 }
 
+.borderpx3Css{
+    border: 3px solid beige;
+}
+
 .textAlng{
     text-align: right;
 }
 
-.hx300{
-    height: 300px;
+.hx450{
+    height: 450px;
+}
+
+.setpsBlueCss{
+    color: white;
+    background-color: #007ad9;
+    text-align: center;
+    border-radius: 42px;
+    height: 60px;
+    width: 60px;
+    padding-top: 17px;
+    margin: 45px;
+}
+
+.setpsGreenCss{
+    color: white;
+    background-color: #07ad49;
+    text-align: center;
+    border-radius: 42px;
+    height: 60px;
+    width: 60px;
+    padding-top: 17px;
+    margin: 45px;
+}
+
+.prx5{
+    padding-right: 5px;
+}
+
+.mtbx75{
+    margin-top: 75px;
+    margin-bottom: 75px;
+}
+.ptx100{
+    padding-top: 100px;
 }
