@@ -1,3 +1,38 @@
-<p>
-  rad02-dbdata-setup works!
-</p>
+<form [formGroup]="dataBaseForm">
+<div class="row">
+  <div class="col-12 form-group">
+    <div class="row">
+    <label class='col-offset-2 col-4 text-right'>Host Name</label>
+    <input type="text" class="col-4 form-control" formControlName="host">
+  </div>
+  </div>
+  <div class="col-12 form-group">
+      <div class="row">
+      <label class='col-offset-2 col-4 text-right'>Port</label>
+      <input type="text" class="col-4 form-control" formControlName="port">
+    </div>
+  </div>
+    <div class="col-12 form-group">
+        <div class="row">
+        <label class='col-offset-2 col-4 text-right'>Db Name</label>
+        <input type="text" class="col-4 form-control" formControlName="name">
+      </div>
+    </div>
+      <div class="col-12 form-group">
+          <div class="row">
+          <label class='col-offset-2 col-4 text-right'>User Name</label>
+          <input type="text" class="col-4 form-control" formControlName="username">
+        </div>
+        </div>
+        <div class="col-12 form-group">
+            <div class="row">
+            <label class='col-offset-2 col-4 text-right'>Password</label>
+            <input type="password" class="col-4 form-control" formControlName="password">
+          </div>
+        </div>
+        <div class="col-8 text-right">
+          <button class="btn btn-primary"[disabled]="!dataBaseForm.valid">Submit</button>
+        </div>
+</div> 
+
+</form>

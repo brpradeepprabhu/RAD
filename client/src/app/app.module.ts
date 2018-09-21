@@ -9,7 +9,7 @@ import {ButtonModule} from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
 
 import { AppRoutingModule } from './app.routing.module';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { Rad01ProjectSetupComponent } from './rad01-project-setup/rad01-project-setup.component';
 import { Rad02DbdataSetupComponent } from './rad02-dbdata-setup/rad02-dbdata-setup.component';
@@ -31,6 +31,7 @@ import { Rad00MainSetupComponent } from './rad00-main-setup/rad00-main-setup.com
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     StepsModule,
     InputTextModule,
