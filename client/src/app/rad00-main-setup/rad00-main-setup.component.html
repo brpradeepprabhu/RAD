@@ -1,0 +1,10 @@
+<div class="container-fluid">
+  <div class="col-md-12">
+    <p-steps [model]="items" [(activeIndex)]="activeIndex" (activeIndexChange)="onMenuClick()" [readonly]="false"></p-steps>
+  </div>
+
+  <div class="col-md-12">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
