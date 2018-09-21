@@ -39,6 +39,7 @@ import { BaseComponent } from './base/base.component';
     StepsModule,
     InputTextModule,
     ButtonModule,
+    
     HttpClientModule,
     DropdownModule,
     BrowserAnimationsModule
