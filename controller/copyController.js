@@ -82,6 +82,7 @@ class CopyController {
 				);
 
 				let replaceContent = contents.replace(new RegExp('sampleModel', 'g'), model.name);
+				replaceContent = replaceContent.replace(new RegExp('sampleData','g') , model.data)
 				fs.writeFileSync(pathName + '/' + projectName + '/server/models/' + model.name + '.js', replaceContent);
 				/**
 		 			* Adding controller to the project files
@@ -96,8 +97,7 @@ class CopyController {
 							pathName + '/' + projectName + '/server/controller/' + model.name + 'Controller.js',
 							'utf8'
 						);
-						let replaceContent = contents.replace(new RegExp('samplemodel', 'g'), model.name);
-
+						let replaceContent = contents.replace(new RegExp('samplemodel', 'g'), model.name);					
 						fs.writeFileSync(
 							pathName + '/' + projectName + '/server/controller/' + model.name + 'Controller.js',
 							replaceContent
