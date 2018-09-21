@@ -139,7 +139,7 @@ var copyCtrl = new CopyController();
 */
 router.post('/project', copyCtrl.copyProject);
 /*
-{"projectName":"testAPIApp","pathName":"C:/Users/pbellikoth001/Project","model":{"name":"home"}}
+{"projectName":"testApp","pathName":"/home/pradeep/","model":{"name":"team","data":"{first_name:String,last_name:String}"}}
 */
 router.post('/model', copyCtrl.copyDataModels);
 /*

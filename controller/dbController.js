@@ -4,10 +4,10 @@ const process = require('process');
 const dirName = process.cwd();
 const fs = require('fs');
 class DbController {
-	constructor() {}
-	setDB(req, res) {
+    constructor() {}
+    setDB(req, res) {
         const projectName = req.body.projectName.toString();
-		const pathName = req.body.pathName.toString();
+        const pathName = req.body.pathName.toString();
         const dbConfig = req.body.db;
         var config = {
             app: {
@@ -17,8 +17,8 @@ class DbController {
                 host: 'localhost',
                 name: 'testDB',
                 port: 27017,
-                username:'',
-                password:''
+                username: '',
+                password: ''
             }
         };
         config.db.host = dbConfig.host;
@@ -30,17 +30,27 @@ class DbController {
         replaceContent += JSON.stringify(config)
         replaceContent += '\n'
         replaceContent += 'module.exports = config'
-        				
+
         fs.writeFileSync(
             pathName + '/' + projectName + '/server/config/config.js',
             replaceContent
-        ); 
+        );
         res.json({
             response: "config is updated",
             content: replaceContent
         });
     }
 }
+/*
+
+{"projectName":"testApp","pathName":"/home/pradeep/", "db": {
+                "host": "localhost",
+                "name": "testApiDb",
+                "port": "27017",
+                "username":"",
+                "password":""
+            }}
+            */
 var dbCtrl = new DbController();
 router.post('/setDB', dbCtrl.setDB);
 module.exports = router;
