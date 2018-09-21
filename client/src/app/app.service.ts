@@ -26,6 +26,10 @@ export class AppService {
         return this.http.post(environment.apiURL + 'copy/model', modelData).pipe(tap((data) => data));
     }
 
+    installProjectDependencies(): Observable<any> {
+        return this.http.post(environment.apiURL + 'copy/install', null).pipe(tap((data) => data));
+    }
+
     setProjectDetails(obj) {
         this.projectName = obj.projectName;
         this.pathName = obj.pathName;
