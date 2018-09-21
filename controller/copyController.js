@@ -233,7 +233,6 @@ class CopyController {
 						pathName + '/' + projectName + '/client/src/app/app.module.ts',
 						replaceContent
 					);
-					top-menu-module
 				}
 				res.status(200).json({
 					data: 'Menu unzipped successfully'
