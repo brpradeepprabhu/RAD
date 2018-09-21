@@ -2,10 +2,12 @@ var express = require('express');
 var router = express.Router();
 const process = require('process');
 const dirName = process.cwd();
-
+const fs = require('fs');
 class DbController {
 	constructor() {}
 	setDB(req, res) {
+        const projectName = req.body.projectName.toString();
+		const pathName = req.body.pathName.toString();
         const dbConfig = req.body.db;
         var config = {
             app: {
@@ -24,21 +26,21 @@ class DbController {
         config.db.port = dbConfig.host;
         config.db.username = dbConfig.username;
         config.db.password = dbConfig.password;
-        let contents = fs.readFileSync(
-            pathName + '/' + projectName + '/server/config/config.js',
-            'utf8'
-        );
         let replaceContent = 'var config = '
-        replaceContent += json.stringify(config)
+        replaceContent += JSON.stringify(config)
         replaceContent += '\n'
         replaceContent += 'module.exports = config'
         				
         fs.writeFileSync(
             pathName + '/' + projectName + '/server/config/config.js',
             replaceContent
-        );
+        ); 
+        res.json({
+            response: "config is updated",
+            content: replaceContent
+        });
     }
 }
 var dbCtrl = new DbController();
-router.post('/setDB', dbCtrl.setDB());
+router.post('/setDB', dbCtrl.setDB);
 module.exports = router;

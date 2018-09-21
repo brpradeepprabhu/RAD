@@ -43,13 +43,13 @@ class CopyController {
 	installPackages(req, res) {
 		const projectName = req.body.projectName.toString();
 		const pathName = req.body.pathName.toString();
-        const angularPath = pathName + '/' + projectName + '/client';
-        const serverPath = pathName + '/' + projectName + '/server';
+		const angularPath = pathName + '/' + projectName + '/client';
+		const serverPath = pathName + '/' + projectName + '/server';
 		try {
 			child_process.execSync('npm install', {
 				cwd: angularPath
-            });
-            child_process.execSync('npm install', {
+			});
+			child_process.execSync('npm install', {
 				cwd: serverPath
 			});
 			res.status(200).json({ data: 'Packages are installed' });
@@ -86,7 +86,7 @@ class CopyController {
 				);
 
 				let replaceContent = contents.replace(new RegExp('sampleModel', 'g'), model.name);
-				replaceContent = replaceContent.replace(new RegExp('sampleData','g') , model.data)
+				replaceContent = replaceContent.replace(new RegExp('sampleData', 'g'), model.data);
 				fs.writeFileSync(pathName + '/' + projectName + '/server/models/' + model.name + '.js', replaceContent);
 				/**
 		 			* Adding controller to the project files
@@ -101,7 +101,7 @@ class CopyController {
 							pathName + '/' + projectName + '/server/controller/' + model.name + 'Controller.js',
 							'utf8'
 						);
-						let replaceContent = contents.replace(new RegExp('samplemodel', 'g'), model.name);					
+						let replaceContent = contents.replace(new RegExp('samplemodel', 'g'), model.name);
 						fs.writeFileSync(
 							pathName + '/' + projectName + '/server/controller/' + model.name + 'Controller.js',
 							replaceContent
@@ -118,6 +118,11 @@ class CopyController {
 						res.json({
 							response: pathName + '/' + projectName + '/server/index.js',
 							content: indexContent
+						});
+					})
+					.catch((err) => {
+						res.json({
+							message: 'Error : ' + err
 						});
 					});
 			})
