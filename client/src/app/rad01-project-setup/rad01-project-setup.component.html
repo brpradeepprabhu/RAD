@@ -1,66 +1,69 @@
 <div class="container-fluid">
-  <div class="col-md-12 row borderpx2Css hx300">
-    <div class="col-md-3 borderrightpx2Css">
-      <div>Step 1</div>
-      <div>Step 2</div>
+  <div class="col-md-12 row borderpx2Css hx450">
+    <div class="col-md-2 borderrightpx2Css">
+      <div [ngClass]="{'setpsBlueCss': activeStep == 1, 'setpsGreenCss': activeStep != 1}">Step 1</div>
+      <div class="borderpx3Css mtbx75"></div>
+      <div class="setpsBlueCss">Step 2</div>
       <div></div>
     </div>
-    <div class="col-md-9">
-
-      <div class="row" *ngIf="activeStep == 1">
-        <div class="col-md-12 row px20">
-          <div class="col-md-3 textAlng">
-            Project Path
+    <div class="col-md-10">
+      <form [formGroup]="projectForm1">
+        <div class="row ptx100" *ngIf="activeStep == 1">
+          <div class="col-md-12 row px20">
+            <div class="col-md-3 textAlng">
+              Project Path
+            </div>
+            <div class="col-md-9">
+              <input type="text" pInputText formControlName="folderPath" placeholder="Choose Folder Path" />
+            </div>
           </div>
-          <div class="col-md-9">
-            <input type="text" pInputText [(ngModel)]="folderPath" placeholder="Choose folder path" />
+          <div class="col-md-12 row px20">
+            <div class="col-md-3 textAlng">
+              Project Name
+            </div>
+            <div class="col-md-9">
+              <input type="text" pInputText formControlName="projectName" placeholder="Hint: AI Angular" />
+            </div>
           </div>
-        </div>
-        <div class="col-md-12 row px20">
-          <div class="col-md-3 textAlng">
-            Project Name
-          </div>
-          <div class="col-md-9">
-            <input type="text" pInputText [(ngModel)]="projectName" placeholder="" />
-          </div>
-        </div>
-        <div class="col-md-12 row px20">
-          <button pButton type="button" (click)="onNext()" label="Next" class="ui-button-raised"></button>
-        </div>
-      </div>
-
-      <div class="row" *ngIf="activeStep == 2">
-        <div class="col-md-12 row px20">
-          <div class="col-md-3 textAlng">
-            DB Name
-          </div>
-          <div class="col-md-9">
-            <p-dropdown [options]="cities" [(ngModel)]="dbName" placeholder="Select a City" optionLabel="name"
-              [showClear]="true"></p-dropdown>
+          <div class="col-md-10 textAlng px20">
+            <button pButton type="button" [disabled]="!projectForm1.valid" (click)="onNext()" label="Next" class="ui-button-raised"></button>
           </div>
         </div>
-        <div class="col-md-12 row px20">
-          <div class="col-md-3 textAlng">
-            Frontend Technology
+      </form>
+      <form [formGroup]="projectForm2">
+        <div class="row ptx100" *ngIf="activeStep == 2">
+          <div class="col-md-12 row px20">
+            <div class="col-md-3 textAlng">
+              DB Name
+            </div>
+            <div class="col-md-9">
+              <p-dropdown [options]="DBMaster" formControlName="dbName" placeholder="Select a DB Name" optionLabel="name"
+                [showClear]="true"></p-dropdown>
+            </div>
           </div>
-          <div class="col-md-9">
-            <p-dropdown [options]="cities" [(ngModel)]="frontEnd" placeholder="Select a City" optionLabel="name"
-              [showClear]="true"></p-dropdown>
+          <div class="col-md-12 row px20">
+            <div class="col-md-3 textAlng">
+              Frontend Technology
+            </div>
+            <div class="col-md-9">
+              <p-dropdown [options]="FrontEndMaster" formControlName="frontEnd" placeholder="Select a Frontend Technology"
+                optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+          </div>
+          <div class="col-md-12 row px20">
+            <div class="col-md-3 textAlng">
+              Backend Technology
+            </div>
+            <div class="col-md-9">
+              <p-dropdown [options]="BackEndMaster" formControlName="backEnd" placeholder="Select a Backend Technology"
+                optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+          </div>
+          <div class="col-md-10 textAlng px20">
+            <button pButton type="button" [disabled]="!projectForm2.valid" (click)="onSubmit()" label="Submit" class="ui-button-raised"></button>
           </div>
         </div>
-        <div class="col-md-12 row px20">
-          <div class="col-md-3 textAlng">
-            Backend Technology
-          </div>
-          <div class="col-md-9">
-            <p-dropdown [options]="cities" [(ngModel)]="backEnd" placeholder="Select a City" optionLabel="name"
-              [showClear]="true"></p-dropdown>
-          </div>
-        </div>
-        <div class="col-md-12 row px20">
-          <button pButton type="button" (click)="onNext()" label="Next" class="ui-button-raised"></button>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-rad01-project-setup',
@@ -11,7 +12,9 @@ import { DropdownModule } from 'primeng/dropdown';
 export class Rad01ProjectSetupComponent implements OnInit {
 
   activeStep: any = 1;
-  cities: any[];
+
+  projectForm1: any;
+  projectForm2: any;
 
   folderPath: any;
   projectName: any;
@@ -21,13 +24,39 @@ export class Rad01ProjectSetupComponent implements OnInit {
   backEnd: any;
 
 
+  DBMaster: any[];
+  FrontEndMaster: any[];
+  BackEndMaster: any[];
+
+
   constructor() {
-    this.cities = [
-      { name: 'New York', code: 'NY' },
-      { name: 'Rome', code: 'RM' },
-      { name: 'London', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' }
+
+    this.projectForm1 = new FormGroup({
+      folderPath: new FormControl('', [Validators.required]),
+      projectName: new FormControl('', [Validators.required])
+    });
+
+    this.projectForm2 = new FormGroup({
+      dbName: new FormControl('', [Validators.required]),
+      frontEnd: new FormControl('', [Validators.required]),
+      backEnd: new FormControl('', [Validators.required])
+    });
+
+    this.DBMaster = [
+      { name: 'MongoDB', code: 'MongoDB' },
+      { name: 'SQL', code: 'SQL' },
+      { name: 'MySQL', code: 'MySQL' },
+    ];
+
+    this.FrontEndMaster = [
+      { name: 'Angular', code: 'Angular' },
+      { name: 'React', code: 'React' },
+    ];
+
+    this.BackEndMaster = [
+      { name: 'Nodejs', code: 'Angular' },
+      { name: 'Php', code: 'Php' },
+      { name: 'Java', code: 'Java' },
     ];
   }
 
@@ -37,5 +66,9 @@ export class Rad01ProjectSetupComponent implements OnInit {
 
   onNext() {
     this.activeStep = 2;
+  }
+
+  onSubmit() {
+
   }
 }
