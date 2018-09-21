@@ -3,6 +3,8 @@ const router = express.Router();
 const process = require('process');
 const dirName = process.cwd();
 const sourceCodePath = dirName + '/assets/code/mean.zip';
+const sideBarPath = dirName + '/assets/code/sidebar.zip';
+const topBarPath = dirName + '/assets/code/top-menu-module.zip';
 const decompress = require('decompress');
 const fs = require('fs-extra');
 const shell = require('shelljs');
@@ -61,7 +63,7 @@ class CopyController {
 			});
 		}
 	}
-	createUIForms(data, projectPath,modelName) {
+	createUIForms(data, projectPath, modelName) {
 		return new Promise((resolove, reject) => {
 			let modelData = data.slice();
 			modelData = modelData.replace('{', '')
@@ -99,13 +101,13 @@ class CopyController {
 				forms += '</div>'
 				console.log(type);
 			})
-			forms +="<div class='row'><div class='col-8 text-right'><button class='btn btn-primary'>Submit</button></div></div>"
-	
+			forms += "<div class='row'><div class='col-8 text-right'><button class='btn btn-primary'>Submit</button></div></div>"
+
 			forms += "</form>"
 			child_process.execSync('ng g c ' + modelName, {
 				cwd: projectPath
 			});
-			fs.writeFileSync(projectPath+ '/src/app/' + modelName+ "/" + modelName + '.component.html', forms);
+			fs.writeFileSync(projectPath + '/src/app/' + modelName + "/" + modelName + '.component.html', forms);
 			resolove(forms);
 		})
 	}
@@ -136,7 +138,7 @@ class CopyController {
 					pathName + '/' + projectName + '/server/models/' + model.name + '.js',
 					'utf8'
 				);
-
+				// model.data = model.data.replace(new RegExp('\"', 'g'), '');
 				let replaceContent = contents.replace(new RegExp('sampleModel', 'g'), model.name);
 				replaceContent = replaceContent.replace(new RegExp('sampleData', 'g'), model.data);
 				fs.writeFileSync(pathName + '/' + projectName + '/server/models/' + model.name + '.js', replaceContent);
@@ -183,7 +185,7 @@ class CopyController {
 									replaceContent
 								);
 								console.log(this)
-								this.createUIForms(model.data,pathName + '/' + projectName +'/client',model.name).then((data) => {
+								this.createUIForms(model.data, pathName + '/' + projectName + '/client', model.name).then((data) => {
 									res.json({
 										response: pathName + '/' + projectName + '/server/index.js',
 										content: replaceContent
@@ -205,6 +207,44 @@ class CopyController {
 				});
 			});
 	}
+	uisetUp(req, res) {
+		const projectName = req.body.projectName.toString();
+		const pathName = req.body.pathName.toString();
+		const menuType = req.body.menu === 'sidebar' ? sideBarPath : topBarPath;
+		// import {SidebarModuleModule} from './sidebar/sidebar-module.module.ts'
+		// SidebarModuleModule
+		try {
+			decompress(menuType, pathName + '/' + projectName + '/client/src/app/').then((files) => {
+				let contents = fs.readFileSync(
+					pathName + '/' + projectName + '/client/src/app/app.module.ts',
+					'utf8'
+				);
+				if (menuType === 'sidebar') {
+					let replaceContent = contents.replace(new RegExp('//importmenumodule', "g"), "import {SidebarModuleModule} from './sidebar/sidebar-module.module.ts'");
+					replaceContent = replaceContent.replace(new RegExp('//menumodule', "g"), "SidebarModuleModule");
+					fs.writeFileSync(
+						pathName + '/' + projectName + '/client/src/app/app.module.ts',
+						replaceContent
+					);
+				} else {
+					let replaceContent = contents.replace(new RegExp('//importmenumodule', "g"), "import {TopMenuModuleModule} from './top-menu-module/top-menu-module.module.ts'");
+					replaceContent = replaceContent.replace(new RegExp('//menumodule', "g"), "TopMenuModuleModule");
+					fs.writeFileSync(
+						pathName + '/' + projectName + '/client/src/app/app.module.ts',
+						replaceContent
+					);
+					top-menu-module
+				}
+				res.status(200).json({
+					data: 'Menu unzipped successfully'
+				});
+			});
+		} catch (e) {
+			res.status(400).json({
+				message: e
+			});
+		}
+	}
 
 }
 var copyCtrl = new CopyController();
@@ -216,6 +256,8 @@ router.post('/project', copyCtrl.copyProject);
 {"projectName":"testApp","pathName":"/home/pradeep/","model":{"name":"team","data":"{first_name:String,last_name:String}"}}
 */
 router.post('/model', copyCtrl.copyDataModels.bind(copyCtrl));
+
+router.post('/ui', copyCtrl.uisetUp.bind(copyCtrl));
 /*
 {"projectName":"testAPIApp","pathName":"C:/Users/pbellikoth001/Project"}
 */
