@@ -1,3 +1,66 @@
-<p>
-  rad01-project-setup works!
-</p>
+<div class="container-fluid">
+  <div class="col-md-12 row borderpx2Css hx300">
+    <div class="col-md-3 borderrightpx2Css">
+      <div>Step 1</div>
+      <div>Step 2</div>
+      <div></div>
+    </div>
+    <div class="col-md-9">
+
+      <div class="row" *ngIf="activeStep == 1">
+        <div class="col-md-12 row px20">
+          <div class="col-md-3 textAlng">
+            Project Path
+          </div>
+          <div class="col-md-9">
+            <input type="text" pInputText [(ngModel)]="folderPath" placeholder="Choose folder path" />
+          </div>
+        </div>
+        <div class="col-md-12 row px20">
+          <div class="col-md-3 textAlng">
+            Project Name
+          </div>
+          <div class="col-md-9">
+            <input type="text" pInputText [(ngModel)]="projectName" placeholder="" />
+          </div>
+        </div>
+        <div class="col-md-12 row px20">
+          <button pButton type="button" (click)="onNext()" label="Next" class="ui-button-raised"></button>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="activeStep == 2">
+        <div class="col-md-12 row px20">
+          <div class="col-md-3 textAlng">
+            DB Name
+          </div>
+          <div class="col-md-9">
+            <p-dropdown [options]="cities" [(ngModel)]="dbName" placeholder="Select a City" optionLabel="name"
+              [showClear]="true"></p-dropdown>
+          </div>
+        </div>
+        <div class="col-md-12 row px20">
+          <div class="col-md-3 textAlng">
+            Frontend Technology
+          </div>
+          <div class="col-md-9">
+            <p-dropdown [options]="cities" [(ngModel)]="frontEnd" placeholder="Select a City" optionLabel="name"
+              [showClear]="true"></p-dropdown>
+          </div>
+        </div>
+        <div class="col-md-12 row px20">
+          <div class="col-md-3 textAlng">
+            Backend Technology
+          </div>
+          <div class="col-md-9">
+            <p-dropdown [options]="cities" [(ngModel)]="backEnd" placeholder="Select a City" optionLabel="name"
+              [showClear]="true"></p-dropdown>
+          </div>
+        </div>
+        <div class="col-md-12 row px20">
+          <button pButton type="button" (click)="onNext()" label="Next" class="ui-button-raised"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

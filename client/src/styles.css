@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+.w100{
+    width: 100%;
+}
+
+.pullRight{
+    float: right;
+}
+
+.px20{
+    padding: 20px;
+}
+.borderpx2Css{
+    border: 2px solid beige;
+    box-shadow: 3px 3px beige;
+}
+.borderrightpx2Css{
+    border-right: 2px solid beige;
+}
+
+.textAlng{
+    text-align: right;
+}
+
+.hx300{
+    height: 300px;
+}

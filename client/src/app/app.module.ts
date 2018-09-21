@@ -1,7 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {StepsModule} from 'primeng/steps';
+import {InputTextModule} from 'primeng/inputtext';
+import {ButtonModule} from 'primeng/button';
+import {DropdownModule} from 'primeng/dropdown';
 
 import { AppRoutingModule } from './app.routing.module';
 
@@ -25,8 +30,13 @@ import { Rad00MainSetupComponent } from './rad00-main-setup/rad00-main-setup.com
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
-    StepsModule
+    StepsModule,
+    InputTextModule,
+    ButtonModule,
+    DropdownModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

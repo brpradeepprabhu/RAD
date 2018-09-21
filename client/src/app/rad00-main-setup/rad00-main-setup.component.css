@@ -1,0 +1,13 @@
+.headerCss{
+
+}
+
+/* :host /deep/ .ui-menuitem-link{
+    width: 250px;
+} */
+
+
+
+:host /deep/ .ui-steps-item{
+    width: 20%;
+}
