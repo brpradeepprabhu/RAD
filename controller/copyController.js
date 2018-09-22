@@ -230,6 +230,7 @@ class CopyController {
 					pathName + '/' + projectName + '/client/src/app/app.module.ts',
 					'utf8'
 				);
+				let appHtmlContent = ''
 				if (menuType === 'sidebar') {
 					let replaceContent = contents.replace(new RegExp('//importmenumodule', "g"), "import {SidebarModuleModule} from './sidebar/sidebar-module.module.ts'");
 					replaceContent = replaceContent.replace(new RegExp('//menumodule', "g"), "SidebarModuleModule");
@@ -237,6 +238,7 @@ class CopyController {
 						pathName + '/' + projectName + '/client/src/app/app.module.ts',
 						replaceContent
 					);
+					appHtmlContent += '<app-sidebar [(display)]=true> </app-sidebar>'
 				} else {
 					let replaceContent = contents.replace(new RegExp('//importmenumodule', "g"), "import {TopMenuModuleModule} from './top-menu-module/top-menu-module.module.ts'");
 					replaceContent = replaceContent.replace(new RegExp('//menumodule', "g"), "TopMenuModuleModule");
@@ -244,7 +246,17 @@ class CopyController {
 						pathName + '/' + projectName + '/client/src/app/app.module.ts',
 						replaceContent
 					);
+					appHtmlContent += '<app-sidebar [(display)]=true> </app-sidebar>'
+				
 				}
+				let appHtml = fs.readFileSync(
+					pathName + '/' + projectName + '/client/src/app/app.component.html',
+					'utf8'
+				);
+				fs.writeFileSync(
+					pathName + '/' + projectName + '/client/src/app/app.component.html',
+					appHtmlContent
+				);
 				res.status(200).json({
 					data: 'Menu unzipped successfully'
 				});
