@@ -26,8 +26,8 @@ export class AppService {
         return this.http.post(environment.apiURL + 'copy/model', modelData).pipe(tap((data) => data));
     }
 
-    installProjectDependencies(): Observable<any> {
-        return this.http.post(environment.apiURL + 'copy/install', null).pipe(tap((data) => data));
+    installProjectDependencies(installData): Observable<any> {
+        return this.http.post(environment.apiURL + 'copy/install', installData).pipe(tap((data) => data));
     }
 
     createUI(uiData): Observable<any> {

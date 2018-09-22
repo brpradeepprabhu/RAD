@@ -24,12 +24,12 @@ export class Rad05InstallPacComponent extends BaseComponent implements OnInit, O
   onSubmit(type) {
     if (type == 'Yes') {
       this.type = type;
-      const dbData = {
+      const installData = {
         projectName: this.appService.projectName,
         pathName: this.appService.pathName
       };
 
-      this.appService.installProjectDependencies()
+      this.appService.installProjectDependencies(installData)
         .pipe(takeUntil(this.ngUnSubscribe)).subscribe((data) => {
           this.show=false;
           this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Model Details Submited' });
