@@ -232,7 +232,7 @@ class CopyController {
 				);
 				let appHtmlContent = ''
 				if (menuType === 'sidebar') {
-					let replaceContent = contents.replace(new RegExp('//importmenumodule', "g"), "import {SidebarModuleModule} from './sidebar/sidebar-module.module.ts'");
+					let replaceContent = contents.replace(new RegExp('//importmenumodule', "g"), "import {SidebarModuleModule} from './sidebar/sidebar-module.module'");
 					replaceContent = replaceContent.replace(new RegExp('//menumodule', "g"), "SidebarModuleModule");
 					fs.writeFileSync(
 						pathName + '/' + projectName + '/client/src/app/app.module.ts',
@@ -240,13 +240,13 @@ class CopyController {
 					);
 					appHtmlContent += '<app-sidebar [(display)]=true> </app-sidebar>'
 				} else {
-					let replaceContent = contents.replace(new RegExp('//importmenumodule', "g"), "import {TopMenuModuleModule} from './top-menu-module/top-menu-module.module.ts'");
+					let replaceContent = contents.replace(new RegExp('//importmenumodule', "g"), "import {TopMenuModuleModule} from './top-menu-module/top-menu-module.module'");
 					replaceContent = replaceContent.replace(new RegExp('//menumodule', "g"), "TopMenuModuleModule");
 					fs.writeFileSync(
 						pathName + '/' + projectName + '/client/src/app/app.module.ts',
 						replaceContent
 					);
-					appHtmlContent += '<app-sidebar [(display)]=true> </app-sidebar>'
+					appHtmlContent += '<app-top-menu> </app-top-menu>'
 				
 				}
 				let appHtml = fs.readFileSync(
