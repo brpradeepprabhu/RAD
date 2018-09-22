@@ -255,7 +255,7 @@ class CopyController {
 				);
 				fs.writeFileSync(
 					pathName + '/' + projectName + '/client/src/app/app.component.html',
-					appHtmlContent
+					appHtml + appHtmlContent
 				);
 				res.status(200).json({
 					data: 'Menu unzipped successfully'
