@@ -3,35 +3,35 @@
     <div class="col-12 form-group ">
       <div class="row px10">
         <label class='col-offset-2 col-4 text-right'>Host Name</label>
-        <input type="text" pInputText class="col-4 form-control" formControlName="host" placeholder="localhost:8080">
+        <input type="text" pInputText class="col-4 form-control" id='host' formControlName="host" placeholder="localhost">
       </div>
     </div>
     <div class="col-12 form-group">
       <div class="row px10">
         <label class='col-offset-2 col-4 text-right'>Port</label>
-        <input type="text" pInputText class="col-4 form-control" formControlName="port" placeholder=":863">
+        <input type="text" pInputText class="col-4 form-control" id='port'  formControlName="port" placeholder="863">
       </div>
     </div>
     <div class="col-12 form-group">
       <div class="row px10">
         <label class='col-offset-2 col-4 text-right'>Db Name</label>
-        <input type="text" pInputText class="col-4 form-control" formControlName="name" placeholder="DB_AI">
+        <input type="text" pInputText class="col-4 form-control" id='name' formControlName="name" placeholder="DB_AI">
       </div>
     </div>
     <div class="col-12 form-group">
       <div class="row px10">
         <label class='col-offset-2 col-4 text-right'>User Name</label>
-        <input type="text" pInputText class="col-4 form-control" formControlName="username" placeholder="Angular_AI">
+        <input type="text" pInputText class="col-4 form-control" id='username' formControlName="username" placeholder="Angular_AI">
       </div>
     </div>
     <div class="col-12 form-group">
       <div class="row px10">
         <label class='col-offset-2 col-4 text-right'>Password</label>
-        <input type="password" pInputText class="col-4 form-control" formControlName="password" placeholder="*******">
+        <input type="password" pInputText class="col-4 form-control" id='password' formControlName="password" placeholder="*******">
       </div>
     </div>
     <div class="col-8 text-right prx5">
-      <button pButton type="button" [disabled]="!dataBaseForm.valid" (click)="onSubmit()" label="Submit" class="ui-button-raised"></button>
+      <button pButton type="button" id='dbBtn'  [disabled]="!dataBaseForm.valid" (click)="onSubmit()" label="Submit" class="ui-button-raised"></button>
     </div>
   </div>
 
