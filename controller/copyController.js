@@ -104,10 +104,21 @@ class CopyController {
 			forms += "<div class='row'><div class='col-8 text-right'><button class='btn btn-primary'>Submit</button></div></div>"
 
 			forms += "</form>"
-			child_process.execSync('ng g c ' + modelName, {
-				cwd: projectPath
-			});
-			fs.writeFileSync(projectPath + '/src/app/' + modelName + "/" + modelName + '.component.html', forms);
+			shell.cd(projectPath + '/client/src/app');
+			shell.mkdir(modelName);
+			fs.copySync(dirName + '/assets/code/samplemodel/samplemodel.component.css', projectPath + '/client/src/app/' + modelName + '/' + modelName + '.component.css');
+			fs.copySync(dirName + '/assets/code/samplemodel/samplemodel.component.html', projectPath + '/client/src/app/' + modelName + '/' + modelName + '.component.html');
+			fs.copySync(dirName + '/assets/code/samplemodel/samplemodel.component.ts', projectPath + '/client/src/app/' + modelName + '/' + modelName + '.component.ts');
+			fs.writeFileSync(projectPath + '/client/src/app/' + modelName + '/' + modelName + '.component.html', forms);
+			var dummyImport = "// import { SamplemodelComponent } from './samplemodel/samplemodel.component';"
+			let actual = "import { " + modelName + "Component } from './" + modelName + "/" + modelName + ".component';" + "\n" + dummyImport;
+			var content = fs.readFileSync(projectPath + '/client/src/app/app.module.ts','utf8');
+			content = content.replace(new RegExp(dummyImport, 'g'), actual);
+
+			var dummyexports = "//SamplemodelComponent";
+			var actualexports = modelName + "Component," + dummyexports ;
+			content = content.replace(new RegExp(dummyexports, 'g'), actualexports);
+			fs.writeFileSync(projectPath + '/client/src/app/app.module.ts', content);
 			resolove(forms);
 		})
 	}
@@ -185,7 +196,7 @@ class CopyController {
 									replaceContent
 								);
 								console.log(this)
-								this.createUIForms(model.data, pathName + '/' + projectName + '/client', model.name).then((data) => {
+								this.createUIForms(model.data, pathName + '/' + projectName, model.name).then((data) => {
 									res.json({
 										response: pathName + '/' + projectName + '/server/index.js',
 										content: replaceContent
@@ -255,6 +266,8 @@ router.post('/project', copyCtrl.copyProject);
 {"projectName":"testApp","pathName":"/home/pradeep/","model":{"name":"team","data":"{first_name:String,last_name:String}"}}
 */
 router.post('/model', copyCtrl.copyDataModels.bind(copyCtrl));
+
+// {"projectName":"testApp","pathName":"/home/pradeep/","menu":"topmenu"}
 
 router.post('/ui', copyCtrl.uisetUp.bind(copyCtrl));
 /*

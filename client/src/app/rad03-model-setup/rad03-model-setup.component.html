@@ -3,7 +3,7 @@
     <div class="col-12 form-group borderbottompx3Css">
       <div class="row px10">
         <label class='col-2 text-right'>Model Name</label>
-        <input type="text" pInputText class="col-4 form-control" formControlName="name" placeholder="Model Name">
+        <input type="text" pInputText class="col-4 form-control" formControlName="name" id='name' placeholder="Model Name">
       </div>
     </div>
     <div class="col-12" formArrayName="data">
@@ -17,13 +17,13 @@
               Field Name
             </div>
             <div class="col-md-3">
-              <input type="text" pInputText class="form-control" placeholder="Field Name" formControlName="fieldName">
+              <input type="text" id='fieldName'  pInputText class="form-control" placeholder="Field Name" formControlName="fieldName">
             </div>
             <div class="col-md-2 textAlng">
               Data Type
             </div>
             <div class="col-md-4">
-              <p-dropdown [options]="DataTypeMaster" placeholder="Select a Datatype" optionLabel="name" [showClear]="true"
+              <p-dropdown [options]="DataTypeMaster" id='datatype' placeholder="Select a Datatype" optionLabel="name" [showClear]="true"
                 formControlName="datatype"></p-dropdown>
             </div>
             <div *ngIf="modelForm.controls.data.controls.length > 1" (click)="onDeleteRowClick()" class="col-md-1 pi pi-times-circle">
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="col-12 text-right px30">
-      <button pButton type="button" [disabled]="!modelForm.valid" (click)="onSubmit()" label="Submit" class="ui-button-raised"></button>
+      <button pButton type="button" id='modelClick' [disabled]="!modelForm.valid" (click)="onSubmit()" label="Submit" class="ui-button-raised"></button>
     </div>
   </div>
 
