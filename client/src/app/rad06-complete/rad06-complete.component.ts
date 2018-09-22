@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-rad06-complete',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Rad06CompleteComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(private appService: AppService) { 
+
+  }
 
   ngOnInit() {
   }
