@@ -110,15 +110,32 @@ class CopyController {
 			fs.copySync(dirName + '/assets/code/samplemodel/samplemodel.component.html', projectPath + '/client/src/app/' + modelName + '/' + modelName + '.component.html');
 			fs.copySync(dirName + '/assets/code/samplemodel/samplemodel.component.ts', projectPath + '/client/src/app/' + modelName + '/' + modelName + '.component.ts');
 			fs.writeFileSync(projectPath + '/client/src/app/' + modelName + '/' + modelName + '.component.html', forms);
+
+			var angularController = fs.readFileSync(projectPath + '/client/src/app/' + modelName + '/' + modelName + '.component.ts', 'utf8');
+			angularController = angularController.replace(new RegExp('samplemodel', 'g'), modelName);
+			fs.writeFileSync(projectPath + '/client/src/app/' + modelName + '/' + modelName + '.component.ts', angularController);
+
 			var dummyImport = "// import { SamplemodelComponent } from './samplemodel/samplemodel.component';"
 			let actual = "import { " + modelName + "Component } from './" + modelName + "/" + modelName + ".component';" + "\n" + dummyImport;
-			var content = fs.readFileSync(projectPath + '/client/src/app/app.module.ts','utf8');
+			var content = fs.readFileSync(projectPath + '/client/src/app/app.module.ts', 'utf8');
 			content = content.replace(new RegExp(dummyImport, 'g'), actual);
 
 			var dummyexports = "//SamplemodelComponent";
-			var actualexports = modelName + "Component," + dummyexports ;
+			var actualexports = modelName + "Component," + dummyexports;
 			content = content.replace(new RegExp(dummyexports, 'g'), actualexports);
 			fs.writeFileSync(projectPath + '/client/src/app/app.module.ts', content);
+			content = content.replace(new RegExp(dummyImport, 'g'), actual);
+
+			var routingContent = fs.readFileSync(projectPath + '/client/src/app/app.routing.module.ts', 'utf8');
+			let dummyRoutingImport = '//samplerouting'
+			let orginalImport = "import { " + modelName + "Component } from './" + modelName + "/" + modelName + ".component';" + '\n' + dummyRoutingImport;
+			routingContent = routingContent.replace(new RegExp(dummyRoutingImport, 'g'), orginalImport);
+
+			let dummyRoutingExport = "//samplimport";
+			let orginalExport = "{ path: '" + modelName + "', component:" + modelName + "Component }," + '\n' + dummyRoutingExport
+			routingContent = routingContent.replace(new RegExp(dummyRoutingExport, 'g'), orginalExport);
+			fs.writeFileSync(projectPath + '/client/src/app/app.routing.module.ts', routingContent);
+
 			resolove(forms);
 		})
 	}
@@ -238,7 +255,7 @@ class CopyController {
 						pathName + '/' + projectName + '/client/src/app/app.module.ts',
 						replaceContent
 					);
-					appHtmlContent += '<app-sidebar [(display)]=true> </app-sidebar>'
+					appHtmlContent += '<app-sidebar> </app-sidebar>'
 				} else {
 					let replaceContent = contents.replace(new RegExp('//importmenumodule', "g"), "import {TopMenuModuleModule} from './top-menu-module/top-menu-module.module'");
 					replaceContent = replaceContent.replace(new RegExp('//menumodule', "g"), "TopMenuModuleModule");
@@ -247,7 +264,7 @@ class CopyController {
 						replaceContent
 					);
 					appHtmlContent += '<app-top-menu> </app-top-menu>'
-				
+
 				}
 				let appHtml = fs.readFileSync(
 					pathName + '/' + projectName + '/client/src/app/app.component.html',

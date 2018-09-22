@@ -23,7 +23,7 @@ class DbController {
         };
         config.db.host = dbConfig.host;
         config.db.name = dbConfig.name;
-        config.db.port = dbConfig.host;
+        config.db.port = dbConfig.port;
         config.db.username = dbConfig.username;
         config.db.password = dbConfig.password;
         let replaceContent = 'var config = '
