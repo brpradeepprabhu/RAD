@@ -221,7 +221,7 @@ class CopyController {
 	uisetUp(req, res) {
 		const projectName = req.body.projectName.toString();
 		const pathName = req.body.pathName.toString();
-		const menuType = req.body.menu === 'sidebar' ? sideBarPath : topBarPath;
+		const menuType = req.body.menu == 'sidebar' ? sideBarPath : topBarPath;
 		// import {SidebarModuleModule} from './sidebar/sidebar-module.module.ts'
 		// SidebarModuleModule
 		try {
@@ -231,7 +231,7 @@ class CopyController {
 					'utf8'
 				);
 				let appHtmlContent = ''
-				if (menuType === 'sidebar') {
+				if (req.body.menu == 'sidebar') {
 					let replaceContent = contents.replace(new RegExp('//importmenumodule', "g"), "import {SidebarModuleModule} from './sidebar/sidebar-module.module'");
 					replaceContent = replaceContent.replace(new RegExp('//menumodule', "g"), "SidebarModuleModule");
 					fs.writeFileSync(

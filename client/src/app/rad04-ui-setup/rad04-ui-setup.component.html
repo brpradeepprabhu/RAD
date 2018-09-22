@@ -6,13 +6,13 @@
             Select the menu bar type?
           </div>
           <div class="col-12 ui-g text-center">
-              <div class="ui-g-12"><p-radioButton name="group1" value="toolbar" label="Top Menu Bar" [(ngModel)]="val1" inputId="opt1" formControlName="menu"></p-radioButton></div>
-              <div class="ui-g-12"><p-radioButton name="group1" value="sidebar" label="Side Menu Bar" [(ngModel)]="val1" inputId="opt2" formControlName="menu"> </p-radioButton></div>
+              <div class="ui-g-12"><p-radioButton id='topMenu' name="group1" value="toolbar" label="Top Menu Bar" [(ngModel)]="val1" inputId="opt1" formControlName="menu"></p-radioButton></div>
+              <div class="ui-g-12"><p-radioButton id='sideMenu' name="group1" value="sidebar" label="Side Menu Bar" [(ngModel)]="val1" inputId="opt2" formControlName="menu"> </p-radioButton></div>
           </div>
         </div>
       </div>
       <div class="col-12 text-right px30">
-        <button pButton type="button" [disabled]="!uiForm.valid" (click)="onSubmit()" label="Submit" class="ui-button-raised"></button>
+        <button pButton type="button" id='uiSubmit' [disabled]="!uiForm.valid" (click)="onSubmit()" label="Submit" class="ui-button-raised"></button>
       </div>
     </div>
   
