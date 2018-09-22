@@ -30,6 +30,10 @@ export class AppService {
         return this.http.post(environment.apiURL + 'copy/install', null).pipe(tap((data) => data));
     }
 
+    createUI(uiData): Observable<any> {
+        return this.http.post(environment.apiURL + 'copy/ui', uiData).pipe(tap((data) => data));
+    }
+
     setProjectDetails(obj) {
         this.projectName = obj.projectName;
         this.pathName = obj.pathName;

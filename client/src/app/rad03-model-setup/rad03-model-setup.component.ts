@@ -5,6 +5,7 @@ import { AppService } from '../app.service';
 import { BaseComponent } from '../base/base.component';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-rad03-model-setup',
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
 export class Rad03ModelSetupComponent extends BaseComponent implements OnInit, OnDestroy {
   modelForm: any;
   DataTypeMaster: any;
+  displayOverlay: boolean = false;
   constructor(private appService: AppService,
     private router: Router,
     private messageService: MessageService,
@@ -60,12 +62,23 @@ export class Rad03ModelSetupComponent extends BaseComponent implements OnInit, O
     control.removeAt(index);
   }
 
+  onNewModel(type) {
+    if (type === 'Yes') {
+      this.displayOverlay = false;
+      this.modelForm.reset();
+    } else {
+      this.displayOverlay = false;
+      this.router.navigate(['mainsetup/uisetup']);
+    }
+  }
+
   onSubmit() {
     // {"projectName":"testApp","pathName":"/home/pradeep/","model":{"name":"team","data":"{first_name:String,last_name:String}"}}
     let dataList = '';
     this.modelForm.value.data.forEach((element, index) => {
-      dataList += (index == 0 ? '{' : '') + element.fieldName + ':' + element.datatype.code + (((this.modelForm.value.data.length - 1) == index)? '}': ',');
+      dataList += (index == 0 ? '{' : '') + element.fieldName + ':' + element.datatype.code + (((this.modelForm.value.data.length - 1) == index) ? '}' : ',');
     });
+    
     const dbData = {
       projectName: this.appService.projectName,
       pathName: this.appService.pathName,
@@ -73,11 +86,13 @@ export class Rad03ModelSetupComponent extends BaseComponent implements OnInit, O
     };
 
 
-    console.log(dbData);
     this.appService.createModel(dbData)
       .pipe(takeUntil(this.ngUnSubscribe)).subscribe((data) => {
         this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Model Details Submited' });
-        this.router.navigate(['mainsetup/uisetup']);
+        setTimeout(() => {
+          this.displayOverlay = true;
+        }, 900)
+        //this.router.navigate(['mainsetup/uisetup']);
       }, error => {
         this.messageService.add({ severity: 'error', summary: 'Error Message', detail: 'Model Details Submit Failed' });
       });

@@ -127,4 +127,16 @@
     padding: 30px;
 }
 
+.text-center{
+ text-align: center; 
+}
+
+.ptx50{
+    padding-top: 50px;
+}
+
+.ptx100{
+    padding-top: 100px;
+}
+
 

@@ -1,2 +1,7 @@
-<router-outlet></router-outlet>
+<div [hidden]="isApploading == false">
+    <router-outlet></router-outlet>
+</div>
+<div [hidden]="isApploading == true" class="text-center ptx100">
+    <img src="../assets/Rad.gif" />
+</div>
 <p-toast position="top-right"></p-toast>

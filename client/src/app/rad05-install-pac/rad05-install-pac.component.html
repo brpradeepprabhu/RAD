@@ -1,20 +1,29 @@
 <div class="col-md-12 row borderpx2Css hx450">
-  <div class="col-md-12">
-    <div class="col-md-12 row px20">
-      <div style="margin-bottom: 15px;" class="row col-md-12">
-        <p style="margin:0 auto">Do you want to install all dependencies packages for the project?</p>
-      </div>
-      <div style="margin:0 auto" class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-6">
-              <button pButton type="button" (click)="onSubmit('Yes')" label="Yes" class="ui-button-raised"></button>
-            </div>
-            <div class="col-md-6 RedBtn">
-              <button pButton type="button" (click)="onSubmit('No')" label="No" class="ui-button-raised"></button>
+    <div  class="col-md-12">
+      <div class="col-md-12 row px20" *ngIf="show && type!=='Yes'">
+        <div style="margin-bottom: 15px;" class="row col-md-12">
+          <p style="margin:0 auto">Do you want to install all dependencies packages for the project?</p>
+        </div>
+        <div style="margin:0 auto" class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6">
+                <button pButton type="button" (click)="onSubmit('Yes');show=true" label="Yes" class="ui-button-raised"></button>
+              </div>
+              <div class="col-md-6 RedBtn">
+                <button pButton type="button" (click)="onSubmit('No');show=false" label="No" class="ui-button-raised"></button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+  
+      <div [ngClass]="{'marginTop': type==='Yes'}" style="margin:0 auto;" class="col-md-6">
+      <div  class="progress" *ngIf="type==='Yes'">
+      
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">LOADING</div>
+      
+        </div>
+    </div>
     </div>
   </div>

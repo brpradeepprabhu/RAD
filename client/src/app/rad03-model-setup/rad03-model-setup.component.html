@@ -38,3 +38,11 @@
   </div>
 
 </form>
+
+<p-dialog header="Confirmation" [(visible)]="displayOverlay" [modal]="true" [width]="350" [minWidth]="200" [minY]="70" [baseZIndex]="10000">
+    <span>Do you want to add one more model?</span>
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" (click)="onNewModel('Yes')" label="Yes"></button>
+            <button type="button" pButton icon="pi pi-close" (click)="onNewModel('No')" label="No" class="ui-button-secondary"></button>
+        </p-footer>
+</p-dialog>

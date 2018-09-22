@@ -8,6 +8,8 @@ import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
 import {ToastModule} from 'primeng/toast';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {DialogModule} from 'primeng/dialog';
 
 import { AppRoutingModule } from './app.routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -43,6 +45,8 @@ import { BaseComponent } from './base/base.component';
     StepsModule,
     InputTextModule,
     ButtonModule,
+    RadioButtonModule,
+    DialogModule,
     
     HttpClientModule,
     DropdownModule,

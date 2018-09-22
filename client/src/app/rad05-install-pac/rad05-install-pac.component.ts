@@ -10,7 +10,8 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./rad05-install-pac.component.css']
 })
 export class Rad05InstallPacComponent extends BaseComponent implements OnInit, OnDestroy {
-  show = false;
+  show:boolean=true;
+  type:string='';
 
   constructor(private appService: AppService,
     private messageService: MessageService) {
@@ -22,6 +23,7 @@ export class Rad05InstallPacComponent extends BaseComponent implements OnInit, O
 
   onSubmit(type) {
     if (type == 'Yes') {
+      this.type = type;
       const dbData = {
         projectName: this.appService.projectName,
         pathName: this.appService.pathName
@@ -29,10 +31,15 @@ export class Rad05InstallPacComponent extends BaseComponent implements OnInit, O
 
       this.appService.installProjectDependencies()
         .pipe(takeUntil(this.ngUnSubscribe)).subscribe((data) => {
+          this.show=false;
           this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Model Details Submited' });
         }, error => {
+          this.show=false;
           this.messageService.add({ severity: 'error', summary: 'Error Message', detail: 'Model Details Submit Failed' });
         });
+    } else {
+      this.type = type;
+      alert('No')
     }
   }
 
