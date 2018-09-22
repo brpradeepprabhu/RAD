@@ -26,6 +26,7 @@ import {MessageService} from 'primeng/api';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BaseComponent } from './base/base.component';
+import { Rad06CompleteComponent } from './rad06-complete/rad06-complete.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { BaseComponent } from './base/base.component';
     Rad04UiSetupComponent,
     Rad05InstallPacComponent,
     Rad00MainSetupComponent,
-    BaseComponent
+    BaseComponent,
+    Rad06CompleteComponent
   ],
   imports: [
     BrowserModule,

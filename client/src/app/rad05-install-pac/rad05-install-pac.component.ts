@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/api';
 import { AppService } from '../app.service';
 import { BaseComponent } from '../base/base.component';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rad05-install-pac',
@@ -10,11 +11,12 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./rad05-install-pac.component.css']
 })
 export class Rad05InstallPacComponent extends BaseComponent implements OnInit, OnDestroy {
-  show:boolean=true;
-  type:string='';
+  show: boolean = true;
+  type: string = '';
 
   constructor(private appService: AppService,
-    private messageService: MessageService) {
+    private messageService: MessageService, 
+    private router:Router) {
     super();
   }
 
@@ -31,15 +33,17 @@ export class Rad05InstallPacComponent extends BaseComponent implements OnInit, O
 
       this.appService.installProjectDependencies(installData)
         .pipe(takeUntil(this.ngUnSubscribe)).subscribe((data) => {
-          this.show=false;
+          this.show = false;
+          this.router.navigate(['/complete']);
           this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Model Details Submited' });
         }, error => {
-          this.show=false;
+          this.show = false;
+          this.router.navigate(['/complete']);
           this.messageService.add({ severity: 'error', summary: 'Error Message', detail: 'Model Details Submit Failed' });
         });
     } else {
       this.type = type;
-      alert('No')
+      this.router.navigate(['/complete']);
     }
   }
 

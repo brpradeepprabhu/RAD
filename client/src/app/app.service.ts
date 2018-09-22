@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class AppService {
     projectName = 'AI099';
-    pathName = 'D:\Hackthon18\Test';
+    pathName = 'D:\\Hackthon18\\Test';
     dbName = '';
     frontEnd = '';
     backEnd = '';
