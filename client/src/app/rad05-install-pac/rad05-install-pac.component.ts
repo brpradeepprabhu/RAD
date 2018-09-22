@@ -35,11 +35,11 @@ export class Rad05InstallPacComponent extends BaseComponent implements OnInit, O
         .pipe(takeUntil(this.ngUnSubscribe)).subscribe((data) => {
           this.show = false;
           this.router.navigate(['/complete']);
-          this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Model Details Submited' });
+          this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Downloaded the dependencies successfully' });
         }, error => {
           this.show = false;
           this.router.navigate(['/complete']);
-          this.messageService.add({ severity: 'error', summary: 'Error Message', detail: 'Model Details Submit Failed' });
+          this.messageService.add({ severity: 'error', summary: 'Error Message', detail: 'Download of dependencies failed' });
         });
     } else {
       this.type = type;
