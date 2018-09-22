@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TopMenuComponent } from './top-menu.component';
+import { Rad06CompleteComponent } from './rad06-complete.component';
 
-describe('TopMenuComponent', () => {
-  let component: TopMenuComponent;
-  let fixture: ComponentFixture<TopMenuComponent>;
+describe('Rad06CompleteComponent', () => {
+  let component: Rad06CompleteComponent;
+  let fixture: ComponentFixture<Rad06CompleteComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TopMenuComponent ]
+      declarations: [ Rad06CompleteComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TopMenuComponent);
+    fixture = TestBed.createComponent(Rad06CompleteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

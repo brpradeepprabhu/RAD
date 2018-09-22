@@ -7,6 +7,7 @@ import { Rad02DbdataSetupComponent } from './rad02-dbdata-setup/rad02-dbdata-set
 import { Rad03ModelSetupComponent } from './rad03-model-setup/rad03-model-setup.component';
 import { Rad04UiSetupComponent } from './rad04-ui-setup/rad04-ui-setup.component';
 import { Rad05InstallPacComponent } from './rad05-install-pac/rad05-install-pac.component';
+import { Rad06CompleteComponent } from './rad06-complete/rad06-complete.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { Rad05InstallPacComponent } from './rad05-install-pac/rad05-install-pac.
     imports: [
         RouterModule.forRoot([
             { path: '', redirectTo: 'mainsetup/projectsetup', pathMatch: 'full' },
+            { path: 'complete', component: Rad06CompleteComponent },
             {
                 path: 'mainsetup', component: Rad00MainSetupComponent,
                 children: [
