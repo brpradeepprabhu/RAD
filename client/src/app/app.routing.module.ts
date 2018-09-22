@@ -14,6 +14,7 @@ import { Rad05InstallPacComponent } from './rad05-install-pac/rad05-install-pac.
     ],
     imports: [
         RouterModule.forRoot([
+            { path: '', redirectTo: 'mainsetup/projectsetup', pathMatch: 'full' },
             {
                 path: 'mainsetup', component: Rad00MainSetupComponent,
                 children: [

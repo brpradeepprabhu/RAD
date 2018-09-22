@@ -1,0 +1,8 @@
+host /deep/ .ui-inputtext{
+    width: 80%;
+}
+
+.RedBtn button{
+    background:red;
+    border:1px solid red;
+}
