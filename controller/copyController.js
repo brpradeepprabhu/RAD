@@ -71,16 +71,19 @@ class CopyController {
 			console.log(modelData)
 			modelData = modelData.split(",");
 			//	const modelData= JSON.parse(data);
-			let forms = "<form>"
+			let formControlData = "{"
+			let forms = "<form [formGroup]='" + modelName + "Form'>"
 			modelData.forEach((fieldData) => {
 				console.log(fieldData);
+
 				const type = fieldData.split(":");
 				forms += '<div class=" col-12 form-group">'
 				forms += '<div class="row">'
 				forms += ' <label class="col-offset-2 col-4 text-right" for="' + type[0] + '">' + type[0] + '</label>'
 				switch (type[1].toLowerCase()) {
+
 					case 'string':
-						forms += ' <input type="text" class="col-4 form-control"  id="' + type[0] + '">'
+						forms += ' <input type="text" class="col-4 form-control" formControlName=' + type[0] + ' id="' + type[0] + '">'
 						break;
 					case 'date':
 						forms += '<p-calendar class="col-4" styleClass="ui-grid-col-4" [style]="{\'width\':\'100%\'}" [inputStyle]="{\'width\':\'100%\'}" id="' + type[0] + '"></p-calendar>'
@@ -97,11 +100,13 @@ class CopyController {
 					case '':
 						break;
 				}
+				formControlData += type[0]+ ": new FormControl(''),"
 				forms += '</div>'
 				forms += '</div>'
 				console.log(type);
 			})
-			forms += "<div class='row'><div class='col-8 text-right'><button class='btn btn-primary'>Submit</button></div></div>"
+			formControlData+="}";
+			forms += "<div class='row'><div class='col-8 text-right'><button class='btn btn-primary' (click)='submitBtnClick()'>Submit</button></div></div>"
 
 			forms += "</form>"
 			shell.cd(projectPath + '/client/src/app');
@@ -113,13 +118,22 @@ class CopyController {
 
 			var angularController = fs.readFileSync(projectPath + '/client/src/app/' + modelName + '/' + modelName + '.component.ts', 'utf8');
 			angularController = angularController.replace(new RegExp('samplemodel', 'g'), modelName);
+			angularController = angularController.replace(new RegExp('//formcontrol', 'g'), formControlData)
 			fs.writeFileSync(projectPath + '/client/src/app/' + modelName + '/' + modelName + '.component.ts', angularController);
+
+
 
 			var dummyImport = "// import { SamplemodelComponent } from './samplemodel/samplemodel.component';"
 			let actual = "import { " + modelName + "Component } from './" + modelName + "/" + modelName + ".component';" + "\n" + dummyImport;
 			var content = fs.readFileSync(projectPath + '/client/src/app/app.module.ts', 'utf8');
 			content = content.replace(new RegExp(dummyImport, 'g'), actual);
 
+			var dummyProviderImport = "//dummyProviderImport"
+			let actualProviderImport = "import { " + modelName + "Component } from './service/" + modelName + ".service';" + "\n" + dummyProviderImport;
+			content = content.replace(new RegExp(dummyProviderImport, 'g'), actualProviderImport);
+			var dummyProviderExport = "//dummyProviderExport"
+			let actualProviderExport = modelName + "Service" + "\n" + dummyProviderExport;
+			content = content.replace(new RegExp(dummyProviderExport, 'g'), actualProviderExport);
 			var dummyexports = "//SamplemodelComponent";
 			var actualexports = modelName + "Component," + dummyexports;
 			content = content.replace(new RegExp(dummyexports, 'g'), actualexports);
@@ -200,16 +214,16 @@ class CopyController {
 						fs
 							.copy(
 								dirName + '/assets/code/sample.service.ts',
-								pathName + '/' + projectName + '/client/src/service/' + model.name + '.service.ts'
+								pathName + '/' + projectName + '/client/src/app/service/' + model.name + '.service.ts'
 							)
 							.then(() => {
 								let contents = fs.readFileSync(
-									pathName + '/' + projectName + '/client/src/service/' + model.name + '.service.ts',
+									pathName + '/' + projectName + '/client/src/app/service/' + model.name + '.service.ts',
 									'utf8'
 								);
 								let replaceContent = contents.replace(new RegExp('samplemodel', 'g'), model.name);
 								fs.writeFileSync(
-									pathName + '/' + projectName + '/client/src/service/' + model.name + '.service.ts',
+									pathName + '/' + projectName + '/client/src/app/service/' + model.name + '.service.ts',
 									replaceContent
 								);
 								console.log(this)
